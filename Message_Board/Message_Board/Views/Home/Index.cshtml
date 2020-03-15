@@ -1,0 +1,86 @@
+﻿@model MsgListViewModel
+
+<div class="form-style-5">
+    <h1>Messages</h1>
+
+
+    @foreach (var user in Model.Users)
+    {
+        int count = 0;
+
+        <div class="form-style-6">
+            <h2>@user.User_name</h2>
+            <p>@user.Msg_content</p>
+
+
+            @foreach (var cmts in Model.Comments)
+            {
+
+                @if (cmts.msg_id == user.Msg_id)
+                {
+                    <div class="form-style-8">
+                        <h6><b>@cmts.name:</b></h6>
+                        <p>@cmts.comment_mgs</p>
+                    </div>
+                    count++;
+                }
+            }
+
+
+            <div class="grid-container">
+
+                <div  class="grid-item textshow">
+                    <i class="material-icons" style="font-size:15px;color:#43D1AF;">thumb_up_alt</i>
+                    <p style="color:#43D1AF;">@user.like</p>
+                </div>
+                <div class="grid-item textshow">
+                    <i class="material-icons" style="font-size:15px;color:#43D1AF;">comment</i>
+                    <p style="color:#43D1AF;">@count</p>
+                </div>
+                <div class="grid-item textshow">
+                    <i class="material-icons" style="font-size:15px;color:#43D1AF;">share</i>
+                    <p style="color:#43D1AF;">100</p>
+                </div>
+            </div>
+
+            <div>
+
+                <form method="post" asp-action="Comment" asp-route-extra="@user.Msg_id">
+                    <div class="form-group">
+                        <input id="name" name="cmtname" class="form-control" required placeholder="Name" />
+                    </div>
+
+                    <div class="form-group">
+                        <input id="comment" name="comment" class="form-control" required placeholder="Comment" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Post Comment" class="btn btn-primary" />
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    }
+
+</div>
+
+<div class="form-style-7">
+    <h1>Post your message</h1>
+    <div class="form-style-7">
+        <form method="post" asp-action="Index">
+            <div class="form-group">
+                <input id="name" name="name" class="form-control" required placeholder="Your Name" />
+            </div>
+
+            <div class="form-group">
+                <input id="message" name="message" class="form-control" required placeholder="Your Message" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Post Message" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>
